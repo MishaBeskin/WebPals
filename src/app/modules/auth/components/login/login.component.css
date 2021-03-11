@@ -1,0 +1,14 @@
+.flex-contianer {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.center{
+  margin: auto;
+  width: 50%;
+  top: 200px;
+  position: relative;
+}
+
+

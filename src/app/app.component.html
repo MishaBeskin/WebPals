@@ -1,0 +1,24 @@
+
+
+<div class="d-flex toggled" id="wrapper">
+
+  <!-- Sidebar -->
+  <div class="bg-light border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading"><img src="assets/webpals.png" class="imgSmallSize" alt="logo"></div>
+    <div class="list-group list-group-flush">
+      <a routerLink="/git-profiles" class="list-group-item list-group-item-action bg-light">GitHub Profiles</a>
+    </div>
+  </div>
+
+
+
+  <div id="page-content-wrapper">
+
+    <app-header></app-header>
+
+
+    <div class="container-fluid">
+<router-outlet></router-outlet>
+  </div>
+
+</div>

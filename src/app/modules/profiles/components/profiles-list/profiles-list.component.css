@@ -1,0 +1,17 @@
+.imageSmall{
+  width: 45px;
+  border-radius: 500px;
+  background-color: #ddd;
+  vertical-align: baseline;
+  border: 2px solid transparent;
+}
+
+
+.mousePointer:hover{
+  cursor: pointer;
+}
+
+
+td {
+  padding: 5px 0px 0px 15px!important
+}

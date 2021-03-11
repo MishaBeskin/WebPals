@@ -1,0 +1,25 @@
+
+
+  <div class="jumbotron center">
+      <div class="col-lg-6 offset-lg-3 col-sm-4 offset-sm-4">
+        <div class="mb-3"><img src="assets/webpals-group.png" alt="logo"></div>
+        <form id="form_login" *ngIf="!isLoading" role="form" [formGroup]="form">
+          <div class="form-group mb-4">
+              <div class="mb-3">
+              <label class="mb-1"  for="email">User Email</label>
+              <input role="email" name="email" type="email" formControlName="email" class="form-control" required placeholder="Enter your email">
+              <small  role="alertEmail" class="text-danger" *ngIf="!form.get('email').valid &&
+              form.get('email').touched">Please provide a valid email</small></div>
+              <div class="mb-3">
+                <label class="mb-1" for="password">Password</label>
+                <input role="password" name="password"  type="password" formControlName="password" minlength="5" required class="form-control" placeholder="Enter Password">
+                <small  role="alertPassword" class="text-danger" *ngIf="!form.get('password').valid &&
+                form.get('password').touched">Please provide a password with min 5 characters</small>
+              </div>
+          </div>
+          <div class="flex-contianer">
+            <button type="submit" role="submit" class="btn btn-success" (click)="Login()"  [disabled]="!form.valid">Login</button>
+          </div>
+        </form>
+    </div>
+  </div>
