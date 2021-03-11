@@ -3,8 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
-import Swal from 'sweetalert2';
-import { IResponse } from 'src/app/models/api-interfaces';
+
 @Component({
   selector: 'fuel-login',
   templateUrl: './login.component.html',
@@ -17,6 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(private srvAuth: AuthService,
     private router: Router,) { }
 
+  // form validation initialization
   ngOnInit(): void {
     this.form = new FormGroup({
       email: new FormControl(this.user ? this.user.email : null, {
@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // validating form, if all ok make login
   Login() {
     if (!this.form.valid) {
       return;

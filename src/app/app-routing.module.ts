@@ -13,7 +13,7 @@ const routes: Routes = [
 
   {
     path: 'git-profiles',
-    loadChildren: () => import('./modules/profiles/profiles.module').then(m => m.ProfilesModule),
+    loadChildren: () => import('./modules/profiles/profiles.module').then(m => m.ProfilesModule)
   }
 ];
 

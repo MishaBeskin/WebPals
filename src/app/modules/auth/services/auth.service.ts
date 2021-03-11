@@ -16,8 +16,9 @@ export interface AuthResponseData {
 })
 export class AuthService {
 
+  // crating user BehaviorSubject to indicate if user status had changed.
   private _user = new BehaviorSubject<IUser>(null);
-
+  // checking if user is logged in.
   get userIsAuthenticated() {
     let userName = localStorage.getItem('user');
     return this._user.asObservable().pipe(
@@ -30,7 +31,7 @@ export class AuthService {
       })
     );
   }
-
+  // get current user.
   get user() {
     return this._user.asObservable().pipe(
       map(user => {
@@ -48,12 +49,11 @@ export class AuthService {
     email: string,
     password: string
   ) {
-
     const user = new User(
       email,
       password
     );
-
+    //if login successful add current user to localstroge and navigate to the profiles page.
     if (user.email === "admin@admin.com" && user.password === "admin") {
       this.router.navigateByUrl('/git-profiles');
       localStorage.setItem("user", user.email);
@@ -69,7 +69,7 @@ export class AuthService {
     }
 
   }
-
+  //when logout clear user and localstroge.
   logout() {
     this._user.next(null);
     localStorage.removeItem("user");

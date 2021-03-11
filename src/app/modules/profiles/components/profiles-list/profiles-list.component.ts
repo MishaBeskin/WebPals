@@ -3,7 +3,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { forkJoin, Subject, Subscription } from 'rxjs';
 import { ProfileViewComponent } from '../profile-view/profile-view.component';
 import { DataService } from '../../services/data.service';
-import Swal from 'sweetalert2';
 import { Profile } from 'src/app/models/profile.model';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -17,48 +16,46 @@ import { DataTableDirective } from 'angular-datatables';
 export class ProfilesListComponent implements OnInit, OnDestroy {
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
-
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
-
-
-
-
   dtOptions: DataTables.Settings = {};
   profiles: Profile[] = [];
   isLoading = false;
   private profilesSub: Subscription;
   selectedProfiles: Profile;
-  @ViewChild('viewProfile') viewProfile;
-  private modalRef;
 
+  //listening to change of the table
   dtTrigger: Subject<any> = new Subject<any>();
 
+  //when component is constructed trying to get data if is there something
   constructor(private dataService: DataService, private modalService: NgbModal) {
     this.profilesSub = this.dataService.profiles.subscribe(profiles => {
+      //making request for all profiles users urls, to get the data that we needed.
       forkJoin(profiles).subscribe(profiles => {
         this.profiles = profiles;
+        // after getting the complete array rerendering the table.
         this.rerender();
       })
-      console.dir(profiles);
     });
   }
 
 
 
   ngOnInit() {
+    //initing table with paging options.
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10
     };
     this.isLoading = true;
+    //fetching Profiles to get updated data.
     this.dataService.fetchProfiles().subscribe(() => {
       this.isLoading = false;
     });
   }
 
 
-
+  //opening the dialog window to show profile user info and his repositories.
   openProfile(profile: Profile) {
     const modalRef = this.modalService.open(
       ProfileViewComponent,

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin, Observable, of } from 'rxjs';
 
-import { take, map, tap, delay, switchMap, concatMap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Profile } from 'src/app/models/profile.model';
 import { environment } from 'src/environments/environment';
+import { ProfileRepositories } from 'src/app/models/profileRepositories.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,22 +13,24 @@ import { environment } from 'src/environments/environment';
 export class DataService {
 
 
-
+  // crating profiles & profilesRepositories BehaviorSubject to listen for a changes of them.
   private _profiles = new BehaviorSubject<Profile[]>([]);
 
-  private _profileRepositories = new BehaviorSubject<Profile[]>([]);
+  private _profileRepositories = new BehaviorSubject<ProfileRepositories[]>([]);
 
+  //getting profiles
   get profiles() {
     return this._profiles.asObservable();
   }
 
+  //getting profiles repositories.
   get profilesRepositories() {
     return this._profileRepositories.asObservable();
   }
 
   constructor(private http: HttpClient) { }
 
-
+  //getting the array of all profiles urls when getting them making forkjoin to get all the data.
   fetchProfiles() {
     return this.http
       .get<any[]>(
@@ -48,7 +51,7 @@ export class DataService {
       );
   }
 
-
+  //getting specific repos of the user.
   getProfileRepo(url: string) {
     return this.http
       .get<any[]>(
@@ -66,6 +69,5 @@ export class DataService {
         })
       );
   }
-
 
 }

@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom'
 import { render, screen, fireEvent } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { LoginComponent } from './login.component';
@@ -37,14 +38,14 @@ describe('should validate and submit login form', () => {
     });
     const passwordControl = screen.getByRole('password');
     userEvent.clear(passwordControl);
-    userEvent.type(passwordControl, '12345');
+    userEvent.type(passwordControl, '1234');
     fireEvent.blur(passwordControl);
 
     const errorPassword = await screen.getByRole('alertPassword');
     expect(errorPassword).toContainElement(screen.queryByText('Please provide a password with min 6 characters'));
     expect(screen.queryByText('Please provide a password with min 6 characters')).toBeInTheDocument();
     userEvent.clear(passwordControl);
-    userEvent.type(passwordControl, '123456');
+    userEvent.type(passwordControl, '12345');
     fireEvent.blur(passwordControl);
     expect(errorPassword).not.toBeInTheDocument();
     expect(passwordControl).toBeValid();
